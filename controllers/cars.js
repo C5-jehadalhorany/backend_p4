@@ -15,9 +15,7 @@ const addCar = (req, res) => {
         img: img
     });
 
-    car
-        .save()
-        .then((result) => {
+    car.save().then((result) => {
             res.status(201).json({
                 success: true,
                 message: `car Created Successfully`,
@@ -28,6 +26,7 @@ const addCar = (req, res) => {
             res.status(409).json({
                 success: false,
                 message: `The car already exists`,
+                err:err
             });
         });
 };
@@ -283,24 +282,24 @@ const getCarBycaregoys = (req, res) => {
 
 const getCarStatus = (req, res) => {
     Id = req.params.id;
-        status = req.body
-        carsModel
-            .findByIdAndUpdate(Id, status)
-            .then((resualt) => {
-                console.log(resualt);
-                res.status(202).json({
-                    success: true,
-                    message: "true" ,
-                    resualt: resualt,
-                });
-            })
-            .catch((err) => {
-                res.status(500).json({
-                    success: false,
-                    message: "err" ,
-                    err: err.message,
-                });
+    status = req.body
+    carsModel
+        .findByIdAndUpdate(Id, status)
+        .then((resualt) => {
+            console.log(resualt);
+            res.status(202).json({
+                success: true,
+                message: "true",
+                resualt: resualt,
             });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                success: false,
+                message: "err",
+                err: err.message,
+            });
+        });
 }
 
 
